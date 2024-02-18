@@ -1,0 +1,64 @@
+using System;
+
+class Jokenpo
+{
+    enum Opcao
+    {
+        Pedra,
+        Papel,
+        Tesoura
+    }
+
+    static void Main()
+    {
+        while (true)
+        {
+            Console.WriteLine("Escolha uma opção:\n0 - Pedra\n1 - Papel\n2 - Tesoura\n3 - Sair");
+            int escolhaUsuario = int.Parse(Console.ReadLine());
+
+            if (escolhaUsuario < 0 || escolhaUsuario > 3)
+            {
+                Console.WriteLine("Opção inválida. Escolha uma opção válida.");
+                continue;
+            }
+
+            if (escolhaUsuario == 3)
+            {
+                Console.WriteLine("Jogo encerrado. Obrigado por jogar!");
+                break;
+            }
+
+            Opcao escolhaComputador = EscolherOpcaoComputador();
+            Opcao escolhaUsuarioEnum = (Opcao)escolhaUsuario;
+
+            Console.WriteLine($"Você escolheu: {escolhaUsuarioEnum}");
+            Console.WriteLine($"Computador escolheu: {escolhaComputador}");
+
+            Console.WriteLine(VerificarVencedor(escolhaUsuarioEnum, escolhaComputador));
+        }
+    }
+
+    static Opcao EscolherOpcaoComputador()
+    {
+        Random random = new Random();
+        return (Opcao)random.Next(0, 3);
+    }
+
+    static string VerificarVencedor(Opcao escolhaUsuario, Opcao escolhaComputador)
+    {
+        if (escolhaUsuario == escolhaComputador)
+        {
+            return "Empate!";
+        }
+        else if ((escolhaUsuario == Opcao.Pedra && escolhaComputador == Opcao.Tesoura) ||
+                 (escolhaUsuario == Opcao.Papel && escolhaComputador == Opcao.Pedra) ||
+                 (escolhaUsuario == Opcao.Tesoura && escolhaComputador == Opcao.Papel))
+        {
+            return "Você venceu!";
+        }
+        else
+        {
+            return "Computador venceu!";
+        }
+    }
+}
