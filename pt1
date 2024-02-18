@@ -1,0 +1,79 @@
+using System;
+
+class Pessoa
+{
+    private string nome;
+    private int idade;
+    private string profissao;
+
+    public Pessoa(string nome, int idade, string profissao)
+    {
+        this.nome = nome;
+        this.idade = idade;
+        this.profissao = profissao;
+    }
+
+    public void Aniversario()
+    {
+        idade++;
+        Console.WriteLine($"{nome} fez aniversário! Agora tem {idade} anos.");
+    }
+
+    public void MudarProfissao(string novaProfissao)
+    {
+        profissao = novaProfissao;
+        Console.WriteLine($"{nome} mudou de profissão para {novaProfissao}.");
+    }
+
+    public void Apresentar()
+    {
+        Console.WriteLine($"Nome: {nome}");
+        Console.WriteLine($"Idade: {idade} anos");
+        Console.WriteLine($"Profissão: {profissao}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Digite o nome da pessoa: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Digite a idade da pessoa: ");
+        int idade = int.Parse(Console.ReadLine());
+
+        Console.Write("Digite a profissão da pessoa: ");
+        string profissao = Console.ReadLine();
+
+        Pessoa pessoa = new Pessoa(nome, idade, profissao);
+        pessoa.Apresentar();
+
+        while (true)
+        {
+            Console.WriteLine("Escolha uma opção:\n1 - Fazer aniversário\n2 - Mudar de profissão\n3 - Sair");
+            string escolha = Console.ReadLine();
+
+            if (escolha == "1")
+            {
+                pessoa.Aniversario();
+            }
+            else if (escolha == "2")
+            {
+                Console.Write("Digite a nova profissão: ");
+                string novaProfissao = Console.ReadLine();
+                pessoa.MudarProfissao(novaProfissao);
+            }
+            else if (escolha == "3")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida, escolha uma opção válida.");
+            }
+
+            pessoa.Apresentar();
+        }
+    }
+}
